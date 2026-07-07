@@ -1,0 +1,79 @@
+#!/bin/zsh
+
+BASE_DIR="/Users/rickpond/Development"
+
+COMMAND=$1
+PROJECT_NAME=$2
+
+if [[ "$COMMAND" != "new" ]]; then
+  echo "Usage: cal new project-name"
+  exit 1
+fi
+
+if [[ -z "$PROJECT_NAME" ]]; then
+  echo "Error: project name is required."
+  echo "Usage: cal new project-name"
+  exit 1
+fi
+
+PROJECT_DIR="$BASE_DIR/$PROJECT_NAME"
+
+if [[ -d "$PROJECT_DIR" ]]; then
+  echo "Error: project already exists:"
+  echo "$PROJECT_DIR"
+  exit 1
+fi
+
+mkdir -p "$PROJECT_DIR/terraform"
+mkdir -p "$PROJECT_DIR/diagrams/source"
+mkdir -p "$PROJECT_DIR/diagrams/exported"
+mkdir -p "$PROJECT_DIR/docs/notes"
+mkdir -p "$PROJECT_DIR/docs/adr"
+mkdir -p "$PROJECT_DIR/screenshots"
+
+touch "$PROJECT_DIR/README.md"
+touch "$PROJECT_DIR/.gitignore"
+
+cat > "$PROJECT_DIR/README.md" <<EOF
+# $PROJECT_NAME
+
+Cloud Architect Lab case study repository.
+
+This repository contains infrastructure code, diagrams, documentation, screenshots, and supporting artifacts for a Cloud Architect Lab case study.
+
+## Repository Structure
+
+\`\`\`text
+terraform/
+diagrams/source/
+diagrams/exported/
+docs/notes/
+docs/adr/
+screenshots/
+README.md
+.gitignore
+\`\`\`
+EOF
+
+cat > "$PROJECT_DIR/.gitignore" <<EOF
+# macOS
+.DS_Store
+
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+.terraform.lock.hcl
+
+# Local environment files
+.env
+*.local
+EOF
+
+cd "$PROJECT_DIR" || exit 1
+git init
+git add .
+git commit -m "Initialize Cloud Architect Lab case study structure"
+
+echo "Created Cloud Architect Lab project:"
+echo "$PROJECT_DIR"
