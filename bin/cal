@@ -1,6 +1,25 @@
 #!/bin/zsh
 
-BASE_DIR="/Users/rickpond/Development"
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+PROJECT_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
+TEMPLATE_DIR="$PROJECT_ROOT/templates"
+
+CONFIG_FILE="$HOME/.cal/config"
+
+if [[ ! -f "$CONFIG_FILE" ]]; then
+  echo "Error: CAL configuration file not found."
+  echo
+  echo "Expected:"
+  echo "  $CONFIG_FILE"
+  echo
+  echo "Please create it with:"
+  echo "  WORKSPACE=/path/to/Development"
+  exit 1
+fi
+
+source "$CONFIG_FILE"
+
+BASE_DIR="$WORKSPACE"
 
 COMMAND=$1
 PROJECT_NAME=$2
