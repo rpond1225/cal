@@ -44,6 +44,8 @@ if [[ -z "$PROJECT_NAME" ]]; then
 fi
 
 PROJECT_DIR="$BASE_DIR/$PROJECT_NAME"
+AUTHOR="$(git config --global user.name)"
+DATE="$(date +%Y-%m-%d)"
 
 if [[ -d "$PROJECT_DIR" ]]; then
   echo "Error: project already exists:"
@@ -59,33 +61,28 @@ mkdir -p "$PROJECT_DIR/docs/adr"
 mkdir -p "$PROJECT_DIR/screenshots"
 
 cp "$TEMPLATE_DIR/README-template.md" "$PROJECT_DIR/README.md"
+cp "$TEMPLATE_DIR/docs/architecture-template.md" "$PROJECT_DIR/docs/architecture.md"
+cp "$TEMPLATE_DIR/docs/deployment-template.md" "$PROJECT_DIR/docs/deployment.md"
+cp "$TEMPLATE_DIR/docs/validation-template.md" "$PROJECT_DIR/docs/validation.md"
+cp "$TEMPLATE_DIR/docs/decisions-template.md" "$PROJECT_DIR/docs/decisions.md"
+cp "$TEMPLATE_DIR/docs/lessons-learned-template.md" "$PROJECT_DIR/docs/lessons-learned.md"
+
 replace_placeholder \
     "$PROJECT_DIR/README.md" \
     "PROJECT_NAME" \
     "$PROJECT_NAME"
 
+replace_placeholder \
+    "$PROJECT_DIR/README.md" \
+    "AUTHOR" \
+    "$AUTHOR"
+
+replace_placeholder \
+    "$PROJECT_DIR/README.md" \
+    "DATE" \
+    "$DATE"
+
 cp "$TEMPLATE_DIR/gitignore-template" "$PROJECT_DIR/.gitignore"
-
-cat > "$PROJECT_DIR/README.md" <<EOF
-# $PROJECT_NAME
-
-Cloud Architect Lab case study repository.
-
-This repository contains infrastructure code, diagrams, documentation, screenshots, and supporting artifacts for a Cloud Architect Lab case study.
-
-## Repository Structure
-
-\`\`\`text
-terraform/
-diagrams/source/
-diagrams/exported/
-docs/notes/
-docs/adr/
-screenshots/
-README.md
-.gitignore
-\`\`\`
-EOF
 
 cat > "$PROJECT_DIR/.gitignore" <<EOF
 # macOS

@@ -1,214 +1,46 @@
 # {{PROJECT_NAME}}
 
-> A Cloud Architect Lab case study demonstrating the design, implementation, and documentation of modern cloud infrastructure using Infrastructure as Code.
-
----
-
 ## Overview
 
-Provide a concise summary of the project.
+This project is part of Cloud Architect Lab.
 
-Describe:
-
-- The business problem
-- The cloud technologies used
-- The architectural goals
-- What this case study demonstrates
-
----
+It documents the design, implementation, validation, and lessons learned from a cloud architecture case study.
 
 ## Objectives
 
-- Objective 1
-- Objective 2
-- Objective 3
-- Objective 4
-
----
-
-## Architecture
-
-Include the high-level architecture diagram.
-
-```
-docs/architecture.png
-```
-
-Briefly describe the architecture and major design decisions.
-
----
-
-## Technology Stack
-
-| Technology | Purpose |
-|------------|---------|
-| AWS | Cloud platform |
-| Terraform | Infrastructure as Code |
-| Git | Version Control |
-| GitHub | Repository Hosting |
-| Mermaid | Architecture Diagrams |
-| VS Code | Development Environment |
-
-(Add or remove technologies as appropriate.)
-
----
-
-## Repository Structure
-
-```text
-project-name/
-├── README.md
-├── docs/
-├── diagrams/
-├── terraform/
-├── images/
-└── scripts/
-```
-
-Describe the purpose of each directory.
-
----
-
-## Infrastructure Components
-
-List the resources created in this project.
-
-Example:
-
-- VPC
-- Public Subnet
-- Private Subnet
-- Internet Gateway
-- Route Tables
-- NAT Gateway
-- Security Groups
-- EC2 Instances
-
-Update this section as the project grows.
-
----
-
-## Deployment
-
-Initialize Terraform:
-
-```bash
-terraform init
-```
-
-Format configuration:
-
-```bash
-terraform fmt
-```
-
-Validate configuration:
-
-```bash
-terraform validate
-```
-
-Review execution plan:
-
-```bash
-terraform plan
-```
-
-Deploy infrastructure:
-
-```bash
-terraform apply
-```
-
-Destroy infrastructure:
-
-```bash
-terraform destroy
-```
-
----
+- Design a clear cloud architecture
+- Implement the environment using Infrastructure as Code
+- Document architecture decisions
+- Validate the deployment
+- Capture lessons learned
 
 ## Documentation
 
-Additional documentation is located in the `docs/` directory.
+- [Architecture](docs/architecture.md)
+- [Deployment](docs/deployment.md)
+- [Validation](docs/validation.md)
+- [Decisions](docs/decisions.md)
+- [Lessons Learned](docs/lessons-learned.md)
 
-Examples:
+## Project Structure
 
-- Architecture
-- Deployment Guide
-- Design Decisions
-- Validation
-- Lessons Learned
+```text
+.
+├── docs/
+├── terraform/
+├── diagrams/
+├── screenshots/
+└── README.md
+```
 
----
+## Status
 
-## Validation
+Draft
 
-Describe how the deployment was verified.
+## Author
 
-Examples:
+{{AUTHOR}}
 
-- Terraform outputs
-- AWS Console verification
-- CLI verification
-- Screenshots
+## Created
 
----
-
-## Lessons Learned
-
-Summarize key technical takeaways from the project.
-
-Include:
-
-- Architecture decisions
-- Challenges encountered
-- Terraform concepts learned
-- AWS concepts reinforced
-
----
-
-## Future Enhancements
-
-Possible future improvements.
-
-Examples:
-
-- Multi-AZ deployment
-- Transit Gateway
-- VPC Peering
-- AWS Organizations
-- Multi-account architecture
-- CI/CD deployment pipeline
-
----
-
-## References
-
-List documentation and resources used.
-
-Examples:
-
-- AWS Documentation
-- Terraform Documentation
-- AWS Well-Architected Framework
-
----
-
-## About Cloud Architect Lab
-
-Cloud Architect Lab is a portfolio of hands-on cloud architecture case studies focused on learning through design, implementation, documentation, and Infrastructure as Code.
-
-Each project emphasizes:
-
-- Architecture first
-- Infrastructure as Code
-- Documentation as code
-- Reproducibility
-- Professional engineering practices
-
----
-
-## License
-
-This project is provided for educational and portfolio purposes.
+{{DATE}}
