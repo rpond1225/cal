@@ -2,7 +2,7 @@
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 PROJECT_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
-TEMPLATE_DIR="$PROJECT_ROOT/templates"
+TEMPLATE_DIR="$PROJECT_ROOT/assets/templates"
 
 CONFIG_FILE="$HOME/.cal/config"
 
