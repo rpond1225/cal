@@ -1,4 +1,4 @@
-# Project Title
+# {{PROJECT_NAME}}
 
 > A Cloud Architect Lab case study demonstrating the design, implementation, and documentation of modern cloud infrastructure using Infrastructure as Code.
 

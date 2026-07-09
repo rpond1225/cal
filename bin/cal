@@ -21,6 +21,14 @@ source "$CONFIG_FILE"
 
 BASE_DIR="$WORKSPACE"
 
+replace_placeholder() {
+    local file="$1"
+    local placeholder="$2"
+    local value="$3"
+
+    sed -i '' "s|{{$placeholder}}|$value|g" "$file"
+}
+
 COMMAND=$1
 PROJECT_NAME=$2
 
@@ -51,6 +59,11 @@ mkdir -p "$PROJECT_DIR/docs/adr"
 mkdir -p "$PROJECT_DIR/screenshots"
 
 cp "$TEMPLATE_DIR/README-template.md" "$PROJECT_DIR/README.md"
+replace_placeholder \
+    "$PROJECT_DIR/README.md" \
+    "PROJECT_NAME" \
+    "$PROJECT_NAME"
+
 cp "$TEMPLATE_DIR/gitignore-template" "$PROJECT_DIR/.gitignore"
 
 cat > "$PROJECT_DIR/README.md" <<EOF
