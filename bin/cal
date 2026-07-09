@@ -50,8 +50,8 @@ mkdir -p "$PROJECT_DIR/docs/notes"
 mkdir -p "$PROJECT_DIR/docs/adr"
 mkdir -p "$PROJECT_DIR/screenshots"
 
-touch "$PROJECT_DIR/README.md"
-touch "$PROJECT_DIR/.gitignore"
+cp "$TEMPLATE_DIR/README-template.md" "$PROJECT_DIR/README.md"
+cp "$TEMPLATE_DIR/gitignore-template" "$PROJECT_DIR/.gitignore"
 
 cat > "$PROJECT_DIR/README.md" <<EOF
 # $PROJECT_NAME
