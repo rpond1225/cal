@@ -1,108 +1,29 @@
 #!/bin/zsh
 
+set -e
+
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 PROJECT_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
-TEMPLATE_DIR="$PROJECT_ROOT/assets/templates"
 
-CONFIG_FILE="$HOME/.cal/config"
+source "$PROJECT_ROOT/lib/core.sh"
 
-if [[ ! -f "$CONFIG_FILE" ]]; then
-  echo "Error: CAL configuration file not found."
-  echo
-  echo "Expected:"
-  echo "  $CONFIG_FILE"
-  echo
-  echo "Please create it with:"
-  echo "  WORKSPACE=/path/to/Development"
-  exit 1
-fi
+COMMAND="${1:-}"
 
-source "$CONFIG_FILE"
+case "$COMMAND" in
+  new)
+    shift
+    source "$PROJECT_ROOT/lib/commands/new.sh"
+    cal_new "$@"
+    ;;
 
-BASE_DIR="$WORKSPACE"
+  help|-h|--help|"")
+    cal_show_help
+    ;;
 
-replace_placeholder() {
-    local file="$1"
-    local placeholder="$2"
-    local value="$3"
-
-    sed -i '' "s|{{$placeholder}}|$value|g" "$file"
-}
-
-COMMAND=$1
-PROJECT_NAME=$2
-
-if [[ "$COMMAND" != "new" ]]; then
-  echo "Usage: cal new project-name"
-  exit 1
-fi
-
-if [[ -z "$PROJECT_NAME" ]]; then
-  echo "Error: project name is required."
-  echo "Usage: cal new project-name"
-  exit 1
-fi
-
-PROJECT_DIR="$BASE_DIR/$PROJECT_NAME"
-AUTHOR="$(git config --global user.name)"
-DATE="$(date +%Y-%m-%d)"
-
-if [[ -d "$PROJECT_DIR" ]]; then
-  echo "Error: project already exists:"
-  echo "$PROJECT_DIR"
-  exit 1
-fi
-
-mkdir -p "$PROJECT_DIR/terraform"
-mkdir -p "$PROJECT_DIR/diagrams/source"
-mkdir -p "$PROJECT_DIR/diagrams/exported"
-mkdir -p "$PROJECT_DIR/docs/notes"
-mkdir -p "$PROJECT_DIR/docs/adr"
-mkdir -p "$PROJECT_DIR/screenshots"
-
-cp "$TEMPLATE_DIR/README-template.md" "$PROJECT_DIR/README.md"
-cp "$TEMPLATE_DIR/docs/architecture-template.md" "$PROJECT_DIR/docs/architecture.md"
-cp "$TEMPLATE_DIR/docs/deployment-template.md" "$PROJECT_DIR/docs/deployment.md"
-cp "$TEMPLATE_DIR/docs/validation-template.md" "$PROJECT_DIR/docs/validation.md"
-cp "$TEMPLATE_DIR/docs/decisions-template.md" "$PROJECT_DIR/docs/decisions.md"
-cp "$TEMPLATE_DIR/docs/lessons-learned-template.md" "$PROJECT_DIR/docs/lessons-learned.md"
-
-replace_placeholder \
-    "$PROJECT_DIR/README.md" \
-    "PROJECT_NAME" \
-    "$PROJECT_NAME"
-
-replace_placeholder \
-    "$PROJECT_DIR/README.md" \
-    "AUTHOR" \
-    "$AUTHOR"
-
-replace_placeholder \
-    "$PROJECT_DIR/README.md" \
-    "DATE" \
-    "$DATE"
-
-cp "$TEMPLATE_DIR/gitignore-template" "$PROJECT_DIR/.gitignore"
-
-cat > "$PROJECT_DIR/.gitignore" <<EOF
-# macOS
-.DS_Store
-
-# Terraform
-.terraform/
-*.tfstate
-*.tfstate.*
-.terraform.lock.hcl
-
-# Local environment files
-.env
-*.local
-EOF
-
-cd "$PROJECT_DIR" || exit 1
-git init
-git add .
-git commit -m "Initialize Cloud Architect Lab case study structure"
-
-echo "Created Cloud Architect Lab project:"
-echo "$PROJECT_DIR"
+  *)
+    echo "Error: unknown command: $COMMAND"
+    echo
+    cal_show_help
+    exit 1
+    ;;
+esac
