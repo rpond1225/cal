@@ -25,3 +25,8 @@ This roadmap outlines planned milestones for the Cloud Architect Lab CLI (CAL).
 - Provide installation instructions.
 - Document all supported commands.
 - Publish a stable project scaffolding workflow.
+## Future Asset System
+
+- Introduce a machine-readable asset manifest for templates, standards, workflows, schemas, and examples.
+- Allow CAL CLI to discover assets without hardcoded template paths.
+- Support versioned asset collections and project-specific scaffolding.
